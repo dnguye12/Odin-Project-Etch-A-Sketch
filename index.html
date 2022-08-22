@@ -24,6 +24,8 @@
     </main>
 </body>
 <script>
+    let tableSize = 16;
+
     let sketch = document.getElementById("sketch");
     sketch.style.height = sketch.style.width.toString() + "px";
 
@@ -44,12 +46,15 @@
     document.head.appendChild(style);
 
     function sketchInit() {
-        for (let i = 1; i <= 16; i++) {
+        while(sketch.lastElementChild) {
+            sketch.removeChild(sketch.lastElementChild);
+        }
+        for (let i = 1; i <= tableSize; i++) {
             let row = document.createElement("tr");
-            for (let j = 1; j <= 16; j++) {
+            for (let j = 1; j <= tableSize; j++) {
                 let cell = document.createElement("td");
-                cell.style.height = (parseFloat(sketch.offsetHeight) / 16).toString() + "px";
-                cell.style.width = (parseFloat(sketch.offsetWidth) / 16).toString() + "px";
+                cell.style.height = (parseFloat(sketch.offsetHeight) / tableSize).toString() + "px";
+                cell.style.width = (parseFloat(sketch.offsetWidth) / tableSize).toString() + "px";
                 cell.style.border = "none";
                 cell.style.padding = "0";
                 cell.style.margin = "0";
@@ -146,6 +151,14 @@
             color = "white";
             updateColor();
         }
+    });
+
+    let sizeLabel = document.querySelector("label");
+    let sizeSlide = document.getElementById("size");
+    sizeSlide.addEventListener("change", function() {
+        tableSize = sizeSlide.value;
+        sketchInit();
+        sizeLabel.textContent = tableSize + " x " + tableSize;
     });
 </script>
 
