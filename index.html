@@ -27,24 +27,46 @@
     let sketch = document.getElementById("sketch");
     sketch.style.height = sketch.style.width.toString() + "px";
 
-function sketchInit() {
-    for(let i = 1; i <= 16; i++) {
-        let row = document.createElement("tr");
-        for(let j = 1; j <= 16; j++) {
-            let cell = document.createElement("td");
-            cell.style.height = (parseFloat(sketch.offsetHeight) / 16).toString() + "px";
-            cell.style.width = (parseFloat(sketch.offsetWidth) / 16).toString() + "px";
-            cell.style.border = "none";
-            cell.style.padding = "0";
-            cell.style.margin = "0";
-            cell.classList.add("cell");
-            row.appendChild(cell);
+    let color = "black";
+    let ColorPicker = document.getElementById("colorpicker");
+    ColorPicker.addEventListener("change", function () {
+        color = ColorPicker.value;
+        updateColor();
+        console.log("gay");
+    });
+
+    let style = document.createElement("style");
+    document.head.appendChild(style);
+
+    function sketchInit() {
+        for (let i = 1; i <= 16; i++) {
+            let row = document.createElement("tr");
+            for (let j = 1; j <= 16; j++) {
+                let cell = document.createElement("td");
+                cell.style.height = (parseFloat(sketch.offsetHeight) / 16).toString() + "px";
+                cell.style.width = (parseFloat(sketch.offsetWidth) / 16).toString() + "px";
+                cell.style.border = "none";
+                cell.style.padding = "0";
+                cell.style.margin = "0";
+                cell.classList.add("cell");
+                cell.addEventListener("click", setCellColor);
+                row.appendChild(cell);
+            }
+            row.style.padding = "0";
+            row.style.margin = "0";
+            sketch.appendChild(row);
         }
-        row.style.padding = "0";
-        row.style.margin = "0";
-        sketch.appendChild(row);
     }
-}
-sketchInit();
+    sketchInit();
+
+    function setCellColor(e) {
+        e.target.style.backgroundColor = color;
+    }
+
+    function updateColor() {
+        let r = document.querySelector(':root');
+        r.style.setProperty("--cell-color", color);
+    }
 </script>
+
 </html>
