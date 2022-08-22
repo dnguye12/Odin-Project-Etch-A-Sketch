@@ -2,13 +2,47 @@
 <html lang="en">
 
 <head>
-    <title>Odin Project - </title>
+    <title>Odin Project - Etch-A-Sketch</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <h1>Etch-a-sketch</h1>
+    <main>
+        <div id="option">
+            <input id="colorpicker" type="color">
+            <button type="button">Color mode</button>
+            <button type="button">Rainbow mode</button>
+            <button type="button">Eraser</button>
+            <button type="button">Clear</button>
+            <label for="size">16 x 16</label>
+            <input id="size" type="range" min="1" max="64" value="16">
+        </div>
+        <table id="sketch">
+    </main>
 </body>
-
+<script>
+    let sketch = document.getElementById("sketch");
+function sketchInit() {
+    for(let i = 1; i <= 16; i++) {
+        let row = document.createElement("tr");
+        for(let j = 1; j <= 16; j++) {
+            let cell = document.createElement("td");
+            cell.style.height = (parseFloat(sketch.offsetHeight) / 16).toString() + "px";
+            cell.style.width = (parseFloat(sketch.offsetWidth) / 16).toString() + "px";
+            cell.style.border = "none";
+            cell.style.padding = "0";
+            cell.style.margin = "0";
+            cell.classList.add("cell");
+            row.appendChild(cell);
+        }
+        row.style.padding = "0";
+        row.style.margin = "0";
+        sketch.appendChild(row);
+    }
+}
+sketchInit();
+</script>
 </html>
