@@ -83,8 +83,8 @@ button:hover {
 
 #sketch {
     background-color: white;
-    height: 480px;
-    width: 480px;
+    width: 60vw;
+    height: 60vw;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-collapse: collapse;
 }

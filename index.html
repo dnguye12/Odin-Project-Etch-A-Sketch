@@ -13,9 +13,9 @@
     <main>
         <div id="option">
             <input id="colorpicker" type="color">
-            <button type="button" class="active">Color mode</button>
-            <button type="button">Rainbow mode</button>
-            <button type="button">Eraser</button>
+            <button type="button" id="oneC" class="active">Color mode</button>
+            <button type="button" id="rainC">Rainbow mode</button>
+            <button type="button" id="btnEraser">Eraser</button>
             <button type="button" id="btnClear">Clear</button>
             <label for="size">16 x 16</label>
             <input id="size" type="range" min="1" max="64" value="16">
@@ -33,6 +33,7 @@
 
 
     let color = "black";
+    let rand = false;
     let ColorPicker = document.getElementById("colorpicker");
     ColorPicker.addEventListener("change", function () {
         color = ColorPicker.value;
@@ -65,12 +66,30 @@
     sketchInit();
 
     function setCellColor(e) {
+        if(rand) {
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            color = `rgb(${r},${g},${b})`;
+            e.target.style.backgroundColor = color;
+            updateColor();
+        }else {
         e.target.style.backgroundColor = color;
+        }
     }
 
     function setCellColorHover(e) {
         if(mouseDown) {
+            if(rand) {
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            color = `rgb(${r},${g},${b})`;
+            e.target.style.backgroundColor = color;
+            updateColor();
+        }else {
         e.target.style.backgroundColor = color;
+        }
         }
     }
 
@@ -86,6 +105,48 @@
             cell.style.backgroundColor = "white";
         } );
     } );
+
+    let btnOne = document.getElementById("oneC");
+    let btnRain = document.getElementById("rainC");
+    let btnEraser = document.getElementById("btnEraser");
+
+    function resetActive() {
+        let btns =document.querySelectorAll("button");
+        btns.forEach( (btn) => {
+            if(btn.classList.contains("active")) {
+                btn.classList.remove("active");
+            }
+        } );
+        rand = false;
+    }
+
+    btnOne.addEventListener("click", function() {
+        if(!btnOne.classList.contains("active")) {
+            resetActive();
+            btnOne.classList.add("active");
+            color = ColorPicker.value;
+            updateColor();
+        }
+    });
+
+    
+    btnRain.addEventListener("click", function() {
+        if(!btnRain.classList.contains("active")) {
+            resetActive();
+            btnRain.classList.add("active");
+            rand = true;
+            updateColor();
+        }
+    });
+
+    btnEraser.addEventListener("click", function() {
+        if(!btnEraser.classList.contains("active")) {
+            resetActive();
+            btnEraser.classList.add("active");
+            color = "white";
+            updateColor();
+        }
+    });
 </script>
 
 </html>
